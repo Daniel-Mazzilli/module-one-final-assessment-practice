@@ -34,7 +34,16 @@ const characters = require('./data/swapi');
  *
  */
 
-function listAllCharacters() {}
+function listAllCharacters(characters) {
+  let charArr = [];
+  for(const char of characters) {
+    charArr.push(char[`name`]);
+  }
+  if(!charArr[0]) {
+    return 0;
+  }
+  return charArr;
+}
 
 //UNCOMMENT THE LINES BELOW TO TEST YOUR SOLUTION
 // console.log(listAllCharacters([]));
@@ -51,10 +60,16 @@ function listAllCharacters() {}
  * No example for this one. You should be able to find the average at this point
  */
 
-function averageHeightOfAllCharacters() {}
+function averageHeightOfAllCharacters(characters) {
+  let totalHeight = 0;
+  for(const char of characters) {
+    totalHeight += + char.height;
+  }
+  return totalHeight / characters.length;
+}
 
 //UNCOMMENT THE LINE BELOW TO TEST YOUR SOLUTION
-//console.log(averageHeightOfAllCharacters(characters))
+// console.log(averageHeightOfAllCharacters(characters))
 
 /**
  * countByEyeColor()
@@ -76,7 +91,20 @@ function averageHeightOfAllCharacters() {}
  *
  */
 
-function countByEyeColor() {}
+function countByEyeColor(characters) {
+  let eyeColor = {};
+  if(!characters[0]) {
+    return `Nothing to check.`;
+  }
+  for(const char of characters) {
+    if(eyeColor[char[`eye_color`]]) {
+      eyeColor[char[`eye_color`]] += 1;
+    } else {
+      eyeColor[char[`eye_color`]] = 1;
+    }
+  }
+  return eyeColor;
+}
 
 //UNCOMMENT THE LINES BELOW TO TEST YOUR SOLUTION
 // console.log(countByEyeColor([]))
@@ -106,7 +134,16 @@ function countByEyeColor() {}
  *
  */
 
-function getAllCharactersCreatedAfterYear() {}
+function getAllCharactersCreatedAfterYear(characters, year) {
+  let afterYear = [];
+  for(const char of characters) {
+    let charYear = + char[`created`].slice(0, 4)
+    if(charYear >= year) {
+      afterYear.push(char[`name`]);
+    }
+  }
+  return afterYear;
+}
 
 //UNCOMMENT THE LINE BELOW TO TEST YOUR SOLUTION
 // console.log(getAllCharactersCreatedAfterYear(characters, 2014));
@@ -138,7 +175,17 @@ function getAllCharactersCreatedAfterYear() {}
    }
  */
 
-function getCharactersInMovie() {}
+function getCharactersInMovie(characters, movie) {
+  let charInMovie = {};
+  for(const char of characters) {
+    for(const film of char[`films`]) {
+      if(film.toUpperCase() === movie.toUpperCase()) {
+        charInMovie[char[`id`]] = char[`name`];
+      }
+    }
+  }
+  return charInMovie;
+}
 
 //UNCOMMENT THE LINE BELOW TO TEST YOUR SOLUTION
-// console.log(getCharactersInMovie(characters, 'return of the jedi'));
+console.log(getCharactersInMovie(characters, 'return of the jedi'));
